@@ -1,8 +1,8 @@
 
 package duckutil.sign;
 
-import java.util.List;
 import com.google.common.collect.ImmutableList;
+import java.util.List;
 
 public abstract class LineReporter extends Thread
 {

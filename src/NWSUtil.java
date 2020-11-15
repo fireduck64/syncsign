@@ -1,16 +1,12 @@
 package duckutil.sign;
 
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-
 import duckutil.Config;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import net.minidev.json.JSONObject;
-import net.minidev.json.JSONArray;
-
 import java.util.TreeSet;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 
 public class NWSUtil
 {

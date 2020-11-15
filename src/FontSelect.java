@@ -1,13 +1,11 @@
 package duckutil.sign;
 
-import duckutil.ConfigFile;
 import duckutil.Config;
-import net.minidev.json.JSONObject;
-import net.minidev.json.JSONArray;
-
-import java.util.LinkedList;
+import duckutil.ConfigFile;
 import java.util.Collection;
-
+import java.util.LinkedList;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 
 public class FontSelect
 {

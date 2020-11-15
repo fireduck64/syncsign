@@ -1,14 +1,8 @@
 package duckutil.sign;
 
 import duckutil.Config;
-import duckutil.ConfigFile;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
-import net.minidev.json.JSONObject;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -16,18 +10,13 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
-import org.elasticsearch.index.query.Operator;
-import java.util.Map;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
-
-
 
 public class ESUtil
 {
@@ -36,7 +25,7 @@ public class ESUtil
   public ESUtil(Config config)
     throws Exception
   {
-		es_client = openElasticSearchClient(config);
+    es_client = openElasticSearchClient(config);
   }
   protected RestHighLevelClient openElasticSearchClient(Config config)
     throws Exception
@@ -51,7 +40,7 @@ public class ESUtil
   protected Map<String, Object> getLatest(String index_base)
     throws Exception
   {
-		return getLatest(index_base, null);
+    return getLatest(index_base, null);
   }
   protected Map<String, Object> getLatest(String index_base, Map<String, String> filter_terms)
     throws Exception
@@ -76,12 +65,12 @@ public class ESUtil
 
     SearchResponse resp = es_client.search(req,RequestOptions.DEFAULT);
 
-		SearchHits hits = resp.getHits();
-		for(SearchHit hit : hits)
-		{
-			Map<String,Object> source_doc = hit.getSourceAsMap();
-			return source_doc;
-		}
+    SearchHits hits = resp.getHits();
+    for(SearchHit hit : hits)
+    {
+      Map<String,Object> source_doc = hit.getSourceAsMap();
+      return source_doc;
+    }
     return null;
 
   }

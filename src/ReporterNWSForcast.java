@@ -2,13 +2,10 @@ package duckutil.sign;
 
 
 import duckutil.Config;
-import java.util.Set;
-import java.util.List;
 import java.util.LinkedList;
-
-import net.minidev.json.JSONObject;
+import java.util.List;
 import net.minidev.json.JSONArray;
-
+import net.minidev.json.JSONObject;
 
 public class ReporterNWSForcast extends LineReporter
 {

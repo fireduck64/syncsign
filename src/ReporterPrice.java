@@ -1,7 +1,5 @@
 package duckutil.sign;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 public class ReporterPrice extends LineReporter
