@@ -18,7 +18,7 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
-public class ESUtil
+public class ESUtil implements AutoCloseable
 {
   private final RestHighLevelClient es_client;
 

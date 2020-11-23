@@ -22,12 +22,24 @@ public class NWSUtil
       JSONObject f = (JSONObject) fo;
       JSONObject properties = (JSONObject) f.get("properties");
       JSONObject params = (JSONObject) properties.get("parameters");
-      JSONArray ha = (JSONArray) params.get("HazardType");
 
-      for(Object ho : ha)
+      String event = (String) properties.get("event");
+      event = event.replace("Advisory","");
+      event = event.trim();
+      hazards.add(event);
+
+
+      // Hazard type Isn't always specified
+      if (params.containsKey("HazardType"))
       {
-        String s = (String) ho;
-        hazards.add(s);
+
+        JSONArray ha = (JSONArray) params.get("HazardType");
+
+        for(Object ho : ha)
+        {
+          String s = (String) ho;
+          hazards.add(s);
+        }
       }
 
     }

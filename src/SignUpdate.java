@@ -26,92 +26,99 @@ public class SignUpdate
   {
     this.config = config;
     String node = config.require("node");
-    es_util = new ESUtil(config);
-
-    boolean reset_display = false;
-    Random rnd = new Random();
-    if (rnd.nextDouble() < 0.1) reset_display=true;
-    //reset_display=true;
-
-    JSONObject doc = new JSONObject();
-    JSONObject layout = new JSONObject();
-    doc.put("layout", layout);
-
-    JSONObject options = new JSONObject();
-    layout.put("options", options);
-
-    if (reset_display)
+    try
     {
-      JSONObject background = new JSONObject();
-      layout.put("background", background);
-      options.put("refreshScreen", true);
-    }
-    else
-    {
-      options.put("refreshScreen", false);
-    }
-    
-    JSONArray items = new JSONArray();
-    layout.put("items", items);
+      es_util = new ESUtil(config);
 
-    LinkedList<String> lines = getLines();
+      boolean reset_display = false;
+      Random rnd = new Random();
+      if (rnd.nextDouble() < 0.1) reset_display=true;
+      //reset_display=true;
 
-    int lines_per_col = 11;
-    if (lines.size() > lines_per_col*2)
-    {
-      System.out.println("Unable to display that many lines");
-    }
+      JSONObject doc = new JSONObject();
+      JSONObject layout = new JSONObject();
+      doc.put("layout", layout);
 
-    for(int j = 0; j<2; j++)
-    {
-      if (lines.size() == 0) break;
-      StringBuilder sb = new StringBuilder();
-      int c = 0;
-      while((lines.size() >0) && (c < lines_per_col))
+      JSONObject options = new JSONObject();
+      layout.put("options", options);
+
+      if (reset_display)
       {
-        sb.append(lines.pollFirst());
-        sb.append("\n");
-        c++;
+        JSONObject background = new JSONObject();
+        layout.put("background", background);
+        options.put("refreshScreen", true);
+      }
+      else
+      {
+        options.put("refreshScreen", false);
+      }
+      
+      JSONArray items = new JSONArray();
+      layout.put("items", items);
+
+      LinkedList<String> lines = getLines();
+
+      int lines_per_col = 11;
+      if (lines.size() > lines_per_col*2)
+      {
+        System.out.println("Unable to display that many lines");
+      }
+
+      for(int j = 0; j<2; j++)
+      {
+        if (lines.size() == 0) break;
+        StringBuilder sb = new StringBuilder();
+        int c = 0;
+        while((lines.size() >0) && (c < lines_per_col))
+        {
+          sb.append(lines.pollFirst());
+          sb.append("\n");
+          c++;
+
+        }
+
+        JSONObject line = new JSONObject();
+        line.put("type", "TEXT");
+        JSONObject data = new JSONObject();
+        line.put("data", data);
+
+
+
+        data.put("text", sb.toString());
+        data.put("font", font);
+        data.put("text-align", "LEFT");
+        data.put("id","nothing");
+        data.put("lineSpace", 0);
+
+        JSONObject block = new JSONObject();
+
+        data.put("block", block);
+
+        block.put("x", 2 + 200 * j);
+        block.put("y", 2);
+        block.put("w", 198);
+        block.put("h", 296);
+
+        items.add(line);
 
       }
 
-      JSONObject line = new JSONObject();
-      line.put("type", "TEXT");
-      JSONObject data = new JSONObject();
-      line.put("data", data);
+      //System.out.println(doc);
+      int code = Render.render(config, node, doc);
+      //System.err.print(code);
 
 
+      JSONObject process_report = new JSONObject();
+      process_report.put("success", 1.0);
+      process_report.put("process", "sign-update");
 
-      data.put("text", sb.toString());
-      data.put("font", font);
-      data.put("text-align", "LEFT");
-      data.put("id","nothing");
-      data.put("lineSpace", 0);
-
-      JSONObject block = new JSONObject();
-
-      data.put("block", block);
-
-      block.put("x", 2 + 200 * j);
-      block.put("y", 2);
-      block.put("w", 198);
-      block.put("h", 296);
-
-      items.add(line);
+      duckutil.ElasticSearchPost.saveDoc( config.require("elasticsearch_url"), "process-report", process_report);
 
     }
-
-    //System.out.println(doc);
-    int code = Render.render(config, node, doc);
-    //System.err.print(code);
-
-    es_util.close();
-
-    JSONObject process_report = new JSONObject();
-    process_report.put("success", 1.0);
-    process_report.put("process", "sign-update");
-
-    duckutil.ElasticSearchPost.saveDoc( config.require("elasticsearch_url"), "process-report", process_report);
+    finally
+    {
+      es_util.close();
+    }
 
 
   }
@@ -123,7 +130,7 @@ public class SignUpdate
 
     int total_wait = 25000;
 
-    reporters.add( new ReporterDate("EEE MM-dd-yy hh:mm") );
+    reporters.add( new ReporterDate("EEE MM-dd hh:mm") );
     reporters.add( new ReporterDate("yyyy.MM.dd HH:mm") );
     reporters.add( new ReporterPrice(es_util, "BTC"));
     reporters.add( new ReporterPrice(es_util, "BCH"));
@@ -132,7 +139,7 @@ public class SignUpdate
     reporters.add( new ReporterPrice(es_util, "VUG"));
     reporters.add( new ReporterNWSAlert(config));
     reporters.add( new ReporterLert());
-    reporters.add( new ReporterBlank());
+    reporters.add( new ReporterEth2(es_util));
     reporters.add( new ReporterBlank());
     reporters.add( new ReporterNWSForcast(config,5));
 

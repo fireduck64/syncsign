@@ -45,10 +45,14 @@ public class ReporterNWSForcast extends LineReporter
       //name = name.replace("Night","Ngt");
 
       shortf = shortf.replace("Chance","Ch");
+      shortf = shortf.replace("And","n");
+      shortf = shortf.replace("Showers","swhrs");
+      shortf = shortf.replace("Thunderstorms", "ts");
 
-      if (shortf.length() > 17)
+
+      if (shortf.length() > 16)
       {
-        shortf = shortf.substring(0,17);
+        shortf = shortf.substring(0,16);
       }
 
 
@@ -58,7 +62,10 @@ public class ReporterNWSForcast extends LineReporter
       {
         String wind = (String) p.get("windSpeed");
         String wind_dir = (String) p.get("windDirection");
-        lines.add(": " + wind + " " + wind_dir);
+
+        wind = wind + " " + wind_dir;
+        wind = wind.replace(" mph","");
+        lines.add(": " + wind);
 
       }
 
