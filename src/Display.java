@@ -8,11 +8,11 @@ import java.util.Random;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
-public class SignUpdate
+public class Display
 {
   public static void main(String args[]) throws Exception
   {
-    new SignUpdate(new ConfigFile(args[0]) );
+    new Display(new ConfigFile(args[0]) );
 
   }
   public static final String font="DDIN_24";
@@ -21,7 +21,7 @@ public class SignUpdate
   private Config config;
 
 
-  public SignUpdate(Config config)
+  public Display(Config config)
     throws Exception
   {
     this.config = config;
@@ -104,21 +104,6 @@ public class SignUpdate
 
       }
 
-      //System.out.println(doc);
-      for(String n : node)
-      {
-        n = n.toLowerCase();
-        int code = Render.render(config, n, doc);
-      }
-      //System.err.print(code);
-
-
-      JSONObject process_report = new JSONObject();
-      process_report.put("success", 1.0);
-      process_report.put("process", "sign-update");
-
-      duckutil.ElasticSearchPost.saveDoc( config.require("elasticsearch_url"), "process-report", process_report);
-
     }
     finally
     {
@@ -143,12 +128,10 @@ public class SignUpdate
     reporters.add( new ReporterPrice(es_util, "SNOW"));
     reporters.add( new ReporterStockPrice(es_util, "VUG"));
     reporters.add( new ReporterLert());
-    reporters.add( new ReporterLocalWeather(es_util));
-    reporters.add( new ReporterBlank());
-    reporters.add( new ReporterBlank());
-    //reporters.add( new ReporterCovidWeek("US","US",7));
-    //reporters.add( new ReporterCovidWeek("Washington","WA",7));
-    //reporters.add( new ReporterCovidWeek("Washington,King","King",7));
+    reporters.add( new ReporterCovidWeek("US","US",7));
+    reporters.add( new ReporterCovidWeek("Washington","WA",7));
+    reporters.add( new ReporterCovidWeek("Washington,King","King",7));
+    reporters.add( new ReporterLocalWeather(es_util) );
     reporters.add( new ReporterNWSAlert(config));
     reporters.add( new ReporterNWSForcast(config,4));
 

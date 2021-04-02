@@ -28,6 +28,14 @@ java_binary(
     ":signlib",
   ],
 )
+java_binary(
+  name = "Display",
+  main_class = "duckutil.sign.Display",
+  runtime_deps = [
+    ":signlib",
+  ],
+)
+
 
 java_binary(
   name = "FontSelect",

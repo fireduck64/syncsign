@@ -14,7 +14,7 @@ public class ReporterLert extends LineReporter
   @Override
   public String computeLine() throws Exception
   {
-    URL u = new URL("http://localhost:45781/");
+    URL u = new URL("http://ogog.int.fireduck.com:45781/");
     HttpURLConnection connection = (HttpURLConnection) u.openConnection();
     connection.setRequestMethod("GET");
 
@@ -28,6 +28,8 @@ public class ReporterLert extends LineReporter
     {
       last_line = scan.nextLine();
     }    
+
+    last_line = last_line.replace("MISSING","MISS");
     
     return last_line;
   }

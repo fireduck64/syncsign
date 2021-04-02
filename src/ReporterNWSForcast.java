@@ -21,9 +21,20 @@ public class ReporterNWSForcast extends LineReporter
   @Override
   public List<String> computeLines() throws Exception
   {
-    JSONArray periods = NWSUtil.getForcast(config);
-
+    JSONArray periods = null;
     LinkedList<String> lines = new LinkedList<>();
+    try
+    {
+
+      periods = NWSUtil.getForcast(config);
+    }
+    catch(OldDataException e)
+    {
+      lines.add("Old data from NWS");
+      lines.add(e.getMessage());
+      return lines;
+    }
+
 
     int c = 0;
     while((c < count) && (periods.size() > c))
