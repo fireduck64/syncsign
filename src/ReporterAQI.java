@@ -35,7 +35,23 @@ public class ReporterAQI extends LineReporter
       out_aqi = getAqi(doc);
     }
 
-    return "AirQ: in:" + in_aqi + " out:" + out_aqi;
+    long crab_aqi = 0;
+    {
+      Map<String,String> filters = new TreeMap<>();
+      filters.put("location", "crabshack");
+      Map<String, Object> doc = es_util.getLatest("airq", filters);
+      crab_aqi = getAqi(doc);
+    }
+    long studio_aqi = 0;
+    {
+      Map<String,String> filters = new TreeMap<>();
+      filters.put("location", "studio");
+      Map<String, Object> doc = es_util.getLatest("airq", filters);
+      studio_aqi = getAqi(doc);
+    }
+
+   return String.format("A o%d h%d s%d c%d", out_aqi, in_aqi, studio_aqi, crab_aqi);
+
   }
 
   public long getAqi(Map<String, Object> doc)
