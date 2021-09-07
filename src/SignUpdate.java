@@ -3,6 +3,7 @@ package duckutil.sign;
 import duckutil.Config;
 import duckutil.ConfigFile;
 import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import net.minidev.json.JSONArray;
@@ -104,13 +105,20 @@ public class SignUpdate
 
       }
 
+      boolean first=true;
+
+      Collections.shuffle(node);
+
+
       //System.out.println(doc);
       for(String n : node)
       {
+        //if (!first) Thread.sleep(90000);
         n = n.toLowerCase();
         int code = Render.render(config, n, doc);
+        System.err.print(code);
+        first=false;
       }
-      //System.err.print(code);
 
 
       JSONObject process_report = new JSONObject();
@@ -144,11 +152,11 @@ public class SignUpdate
     reporters.add( new ReporterStockPrice(es_util, "VUG"));
     reporters.add( new ReporterLert());
     reporters.add( new ReporterLocalWeather(es_util));
-    reporters.add( new ReporterBlank());
+    reporters.add( new ReporterAQI(es_util) );
     reporters.add( new ReporterBlank());
     //reporters.add( new ReporterCovidWeek("US","US",7));
     //reporters.add( new ReporterCovidWeek("Washington","WA",7));
-    //reporters.add( new ReporterCovidWeek("Washington,King","King",7));
+    reporters.add( new ReporterCovidWeek("Washington,King","King",1));
     reporters.add( new ReporterNWSAlert(config));
     reporters.add( new ReporterNWSForcast(config,4));
 

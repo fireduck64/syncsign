@@ -1,6 +1,7 @@
 package duckutil.sign;
 
 import java.util.Map;
+import java.text.DecimalFormat;
 
 public class ReporterPrice extends LineReporter
 {
@@ -18,7 +19,9 @@ public class ReporterPrice extends LineReporter
   public String computeLine() throws Exception
   {
     Map<String, Object> doc = es_util.getLatest("cryptoprice");
-    return ticker + " - " + doc.get(ticker).toString();
+    double price = Double.parseDouble(doc.get(ticker).toString());
+    DecimalFormat df = new DecimalFormat("0.00");
+    return ticker + " - " + df.format(price);
   }
 
 }

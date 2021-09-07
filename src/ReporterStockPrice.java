@@ -2,6 +2,7 @@ package duckutil.sign;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.text.DecimalFormat;
 
 public class ReporterStockPrice extends LineReporter
 {
@@ -21,8 +22,11 @@ public class ReporterStockPrice extends LineReporter
     Map<String, String> filter = new TreeMap<>();
     filter.put("ticker", ticker);
 
+
     Map<String, Object> doc = es_util.getLatest("stockprice", filter);
-    return ticker + " - " + doc.get("price").toString();
+    double price = Double.parseDouble(doc.get("price").toString());
+    DecimalFormat df = new DecimalFormat("0.00");
+    return ticker + " - " + df.format(price);
   }
 
 }
