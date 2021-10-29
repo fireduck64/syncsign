@@ -25,8 +25,6 @@ public class ReporterNWSAlert extends LineReporter
     sb.append("HAZ");
     for(String h : NWSUtil.getAlertHazards(config))
     {
-      h = h.replace("Hydrologic Outlook","Flood");
-      h = h.replace("Flood Watch","Flood");
       sb.append(" ");
       sb.append(h);
     }

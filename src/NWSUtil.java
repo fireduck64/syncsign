@@ -55,8 +55,12 @@ public class NWSUtil
       event = event.replace("Watch","");
       event = event.replace("Warning","");
       event = event.replace("Storm","");
-      event = event.replace("Heavy Snow","Snow");
+      event = event.replace("Avalanche","Slidey");
+      event = event.replace("Heavy Snow","Snowy");
       event = event.replace("Flood","Floody");
+      event = event.replace("Hydrologic Outlook","Floody");
+      event = event.replace("Hydrologic_Outlook","Floody");
+      event = event.replace("Flood Watch","Floody");
       event = event.trim();
       event = event.replace(" ","_");
 
