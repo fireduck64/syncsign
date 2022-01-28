@@ -35,6 +35,14 @@ java_binary(
     ":signlib",
   ],
 )
+java_binary(
+  name = "SignImage",
+  main_class = "duckutil.sign.SignImage",
+  runtime_deps = [
+    ":signlib",
+  ],
+)
+
 
 
 java_binary(

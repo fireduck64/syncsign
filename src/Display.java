@@ -25,85 +25,11 @@ public class Display
     throws Exception
   {
     this.config = config;
-    config.require("node");
-    List<String> node = config.getList("node");
     try
     {
       es_util = new ESUtil(config);
 
-      boolean reset_display = false;
-      Random rnd = new Random();
-      if (rnd.nextDouble() < 0.1) reset_display=true;
-      //reset_display=true;
-
-      JSONObject doc = new JSONObject();
-      JSONObject layout = new JSONObject();
-      doc.put("layout", layout);
-
-      JSONObject options = new JSONObject();
-      layout.put("options", options);
-
-      if (reset_display)
-      {
-        JSONObject background = new JSONObject();
-        layout.put("background", background);
-        options.put("refreshScreen", true);
-      }
-      else
-      {
-        options.put("refreshScreen", false);
-      }
-      
-      JSONArray items = new JSONArray();
-      layout.put("items", items);
-
       LinkedList<String> lines = getLines();
-
-      int lines_per_col = 11;
-      if (lines.size() > lines_per_col*2)
-      {
-        System.out.println("Unable to display that many lines");
-      }
-
-      for(int j = 0; j<2; j++)
-      {
-        if (lines.size() == 0) break;
-        StringBuilder sb = new StringBuilder();
-        int c = 0;
-        while((lines.size() >0) && (c < lines_per_col))
-        {
-          sb.append(lines.pollFirst());
-          sb.append("\n");
-          c++;
-
-        }
-
-        JSONObject line = new JSONObject();
-        line.put("type", "TEXT");
-        JSONObject data = new JSONObject();
-        line.put("data", data);
-
-
-
-        data.put("text", sb.toString());
-        data.put("font", font);
-        data.put("text-align", "LEFT");
-        data.put("id","nothing");
-        data.put("lineSpace", 0);
-
-        JSONObject block = new JSONObject();
-
-        data.put("block", block);
-
-        block.put("x", 2 + 200 * j);
-        block.put("y", 2);
-        block.put("w", 198);
-        block.put("h", 296);
-
-        items.add(line);
-
-      }
-
     }
     finally
     {

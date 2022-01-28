@@ -61,6 +61,9 @@ public class NWSUtil
       event = event.replace("Hydrologic Outlook","Floody");
       event = event.replace("Hydrologic_Outlook","Floody");
       event = event.replace("Flood Watch","Floody");
+      event = event.replace("Coastal Floody","Floody");
+      event = event.replace("Air Stagnation","Stag");
+      event = event.replace("Dense Fog","Fog");
       event = event.trim();
       event = event.replace(" ","_");
 
