@@ -18,6 +18,7 @@ java_library(
     "@maven//:com_amazonaws_aws_java_sdk_sns",
     "@maven//:com_amazonaws_aws_java_sdk_core",
     "@maven//:org_eclipse_paho_org_eclipse_paho_client_mqttv3",
+    "@maven//:org_mongodb_mongo_java_driver",
   ],
 )
 

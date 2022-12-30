@@ -14,7 +14,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 git_repository(
   name = "duckutil",
   remote = "https://github.com/fireduck64/duckutil",
-  commit = "bf1f4e4ba46a814c6e40b53de4921ebea950d84c",
+  commit = "73cfb56a178ccff906eae459bc661d5e6cebe5e5",
   shallow_since = "1576867546 -0800",
 )
 
@@ -32,6 +32,7 @@ maven_install(
         "com.amazonaws:aws-java-sdk:1.11.765",
         "org.elasticsearch.client:elasticsearch-rest-high-level-client:7.6.2",
         "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5",
+        "org.mongodb:mongo-java-driver:3.12.11",
     ],
     repositories = [
         "https://repo1.maven.org/maven2",

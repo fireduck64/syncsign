@@ -6,9 +6,9 @@ import java.text.DecimalFormat;
 public class ReporterPrice extends LineReporter
 {
   private String ticker;
-  private ESUtil es_util;
+  private DBUtil es_util;
 
-  public ReporterPrice(ESUtil es_util, String ticker)
+  public ReporterPrice(DBUtil es_util, String ticker)
   {
     super("price-" + ticker);
     this.ticker = ticker;
@@ -19,6 +19,7 @@ public class ReporterPrice extends LineReporter
   public String computeLine() throws Exception
   {
     Map<String, Object> doc = es_util.getLatest("cryptoprice");
+    System.out.println(doc);
     double price = Double.parseDouble(doc.get(ticker).toString());
     DecimalFormat df = new DecimalFormat("0.00");
     return ticker + " - " + df.format(price);

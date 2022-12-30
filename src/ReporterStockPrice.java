@@ -7,9 +7,9 @@ import java.text.DecimalFormat;
 public class ReporterStockPrice extends LineReporter
 {
   private String ticker;
-  private ESUtil es_util;
+  private DBUtil es_util;
 
-  public ReporterStockPrice(ESUtil es_util, String ticker)
+  public ReporterStockPrice(DBUtil es_util, String ticker)
   {
     super("price-" + ticker);
     this.ticker = ticker;

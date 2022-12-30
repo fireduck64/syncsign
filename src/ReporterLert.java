@@ -14,7 +14,7 @@ public class ReporterLert extends LineReporter
   @Override
   public String computeLine() throws Exception
   {
-    URL u = new URL("http://ogog.int.fireduck.com:45781/");
+    URL u = new URL("http://skyeye.1209k.com:45781/");
     HttpURLConnection connection = (HttpURLConnection) u.openConnection();
     connection.setRequestMethod("GET");
 

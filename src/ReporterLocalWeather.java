@@ -7,9 +7,9 @@ import java.text.DecimalFormat;
 
 public class ReporterLocalWeather extends LineReporter
 {
-  private final ESUtil es_util;
+  private final DBUtil es_util;
 
-  public ReporterLocalWeather(ESUtil es_util)
+  public ReporterLocalWeather(DBUtil es_util)
   {
     super("local_weather");
     this.es_util = es_util;

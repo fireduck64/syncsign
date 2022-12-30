@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ReporterAQI extends LineReporter
 {
-  private final ESUtil es_util;
+  private final DBUtil es_util;
 
-  public ReporterAQI(ESUtil es_util)
+  public ReporterAQI(DBUtil es_util)
   {
     super("aqi");
     this.es_util = es_util;

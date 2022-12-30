@@ -18,7 +18,7 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
-public class ESUtil implements AutoCloseable
+public class ESUtil implements AutoCloseable, DBUtil
 {
   private final RestHighLevelClient es_client;
 
@@ -37,12 +37,12 @@ public class ESUtil implements AutoCloseable
       );
   }
 
-  protected Map<String, Object> getLatest(String index_base)
+  public Map<String, Object> getLatest(String index_base)
     throws Exception
   {
     return getLatest(index_base, null);
   }
-  protected Map<String, Object> getLatest(String index_base, Map<String, String> filter_terms)
+  public Map<String, Object> getLatest(String index_base, Map<String, String> filter_terms)
     throws Exception
   {
     SearchRequest req = new SearchRequest(index_base+"-*");
