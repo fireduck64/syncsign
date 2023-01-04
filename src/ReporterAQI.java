@@ -56,6 +56,12 @@ public class ReporterAQI extends LineReporter
 
   public long getAqi(Map<String, Object> doc)
   {
+    System.out.println("getApi " + doc);
+    if (doc.containsKey("aqius"))
+    {
+      long v = (int) doc.get("aqius");
+      return v;
+    }
     Double p10 = Double.parseDouble(doc.get("p1").toString());
     Double p25 = Double.parseDouble(doc.get("p2").toString());
 
