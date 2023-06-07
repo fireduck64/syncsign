@@ -115,9 +115,9 @@ public class NWSUtil
   public static JSONArray getForcast(Config config)
     throws Exception
   {
-    //JSONObject doc = get(config, config.require("nws_forcast_url"));
+    JSONObject doc = get(config, config.require("nws_forcast_url"));
 
-    JSONObject doc = readFile(config.require("nws_forcast_file"));
+    //JSONObject doc = readFile(config.require("nws_forcast_file"));
 
     /*if (config.isSet("nws_forcast_file"))
     {

@@ -23,7 +23,6 @@ public class MongoUtil implements DBUtil
 
     String mongo_uri = config.require("mongo_uri");
     MongoClient mongo = MongoClients.create(mongo_uri);
-    Thread.sleep(4000);
     mongo_db = mongo.getDatabase("metric");
 
   }
