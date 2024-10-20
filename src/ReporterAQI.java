@@ -5,6 +5,11 @@ import java.util.TreeMap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import duckutil.Pair;
+import java.awt.image.BufferedImage;
+import java.awt.Font;
+import java.awt.Color;
+import java.util.LinkedList;
 
 public class ReporterAQI extends LineReporter
 {
@@ -16,6 +21,8 @@ public class ReporterAQI extends LineReporter
     this.es_util = es_util;
   }
 
+  List<Pair<String, Long> > air_val = new LinkedList<>();
+
   @Override
   public String computeLine() throws Exception
   {
@@ -26,6 +33,7 @@ public class ReporterAQI extends LineReporter
       Map<String, Object> doc = es_util.getLatest("airq", filters);
       in_aqi = getAqi(doc);
     }
+    air_val.add(new Pair<String, Long>("h", in_aqi));
 
     long out_aqi = 0;
     {
@@ -34,6 +42,7 @@ public class ReporterAQI extends LineReporter
       Map<String, Object> doc = es_util.getLatest("airq", filters);
       out_aqi = getAqi(doc);
     }
+    air_val.add(new Pair<String, Long>("o", out_aqi));
 
     long crab_aqi = 0;
     {
@@ -42,6 +51,8 @@ public class ReporterAQI extends LineReporter
       Map<String, Object> doc = es_util.getLatest("airq", filters);
       crab_aqi = getAqi(doc);
     }
+    air_val.add(new Pair<String, Long>("c", crab_aqi));
+
     long studio_aqi = 0;
     {
       Map<String,String> filters = new TreeMap<>();
@@ -49,14 +60,41 @@ public class ReporterAQI extends LineReporter
       Map<String, Object> doc = es_util.getLatest("airq", filters);
       studio_aqi = getAqi(doc);
     }
+    air_val.add(new Pair<String, Long>("s", studio_aqi));
 
    return String.format("A o%d h%d s%d c%d", out_aqi, in_aqi, studio_aqi, crab_aqi);
 
   }
 
+  @Override
+  public BufferedImage getSuccessRender(Font font)
+  {
+    List<BufferedImage> sections = new LinkedList<>();
+    sections.add( GraphicsUtil.renderText(Color.WHITE, Color.BLACK, font, "AQI"));
+    
+    for(Pair<String, Long> p : air_val)
+    {
+      Color fg = Color.RED;
+      long aqi = p.getB();
+      String label = p.getA();
+      if (aqi < 75) fg = Color.YELLOW;
+      if (aqi < 45) fg = Color.GREEN;
+      String s = label + aqi;
+      BufferedImage bi = GraphicsUtil.renderText(Color.RED, Color.BLACK, font, s);
+
+      GraphicsUtil.dither(bi, Color.RED, Color.WHITE, fg);
+
+      sections.add( bi );
+
+    }
+    return GraphicsUtil.horzStack(sections, 8);
+
+  }
+
+
   public long getAqi(Map<String, Object> doc)
   {
-    System.out.println("getApi " + doc);
+    //System.out.println("getApi " + doc);
     if (doc.containsKey("aqius"))
     {
       long v = (int) doc.get("aqius");

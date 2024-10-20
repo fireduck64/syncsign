@@ -19,7 +19,7 @@ public class ReporterPrice extends LineReporter
   public String computeLine() throws Exception
   {
     Map<String, Object> doc = es_util.getLatest("cryptoprice");
-    System.out.println(doc);
+    //System.out.println(doc);
     double price = Double.parseDouble(doc.get(ticker).toString());
     DecimalFormat df = new DecimalFormat("0.00");
     return ticker + " - " + df.format(price);

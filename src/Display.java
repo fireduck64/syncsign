@@ -17,7 +17,7 @@ public class Display
   }
   public static final String font="DDIN_24";
 
-  private ESUtil es_util;
+  private DBUtil es_util;
   private Config config;
 
 
@@ -27,7 +27,7 @@ public class Display
     this.config = config;
     try
     {
-      es_util = new ESUtil(config);
+      es_util = new MongoUtil(config);
 
       LinkedList<String> lines = getLines();
     }
@@ -54,13 +54,15 @@ public class Display
     reporters.add( new ReporterPrice(es_util, "SNOW"));
     reporters.add( new ReporterStockPrice(es_util, "VUG"));
     reporters.add( new ReporterLert());
-    reporters.add( new ReporterCovidWeek("US","US",1));
-    reporters.add( new ReporterCovidWeek("Washington","WA",1));
-    reporters.add( new ReporterCovidWeek("Washington,King","King",1));
+    //reporters.add( new ReporterCovidWeek("US","US",1));
+    //reporters.add( new ReporterCovidWeek("Washington","WA",1));
+    //reporters.add( new ReporterCovidWeek("Washington,King","King",1));
+    //reporters.add( new ReporterCountdown("fdt", 1661205600L));
     reporters.add( new ReporterLocalWeather(es_util) );
     reporters.add( new ReporterAQI(es_util) );
     reporters.add( new ReporterNWSAlert(config));
-    reporters.add( new ReporterNWSForcast(config,4));
+    //reporters.add( new ReporterNWSForcast(config,4));
+    reporters.add(new ReporterOpenWeather(config));
 
     for(LineReporter r : reporters)
     {

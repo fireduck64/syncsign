@@ -18,7 +18,7 @@ public class SignUpdate
   }
   public static final String font="DDIN_24";
 
-  private ESUtil es_util;
+  private MongoUtil es_util;
   private Config config;
 
 
@@ -30,7 +30,7 @@ public class SignUpdate
     List<String> node = config.getList("node");
     try
     {
-      es_util = new ESUtil(config);
+      es_util = new MongoUtil(config);
 
       boolean reset_display = false;
       Random rnd = new Random();
@@ -119,13 +119,14 @@ public class SignUpdate
         System.err.print(code);
         first=false;
       }
+      System.out.println("Doc: " + doc);
 
 
       JSONObject process_report = new JSONObject();
       process_report.put("success", 1.0);
       process_report.put("process", "sign-update");
 
-      duckutil.ElasticSearchPost.saveDoc( config.require("elasticsearch_url"), "process-report", process_report);
+      duckutil.ElasticSearchPost.saveDoc( "http://metrics.1209k.com:9200/", "process-report", process_report);
 
     }
     finally
@@ -156,9 +157,11 @@ public class SignUpdate
     reporters.add( new ReporterBlank());
     //reporters.add( new ReporterCovidWeek("US","US",7));
     //reporters.add( new ReporterCovidWeek("Washington","WA",7));
-    reporters.add( new ReporterCovidWeek("Washington,King","King",1));
+    //reporters.add( new ReporterCovidWeek("Washington,King","King",1));
+    //reporters.add( new ReporterCountdown("fdt", 1661205600L));
     reporters.add( new ReporterNWSAlert(config));
-    reporters.add( new ReporterNWSForcast(config,4));
+    reporters.add(new ReporterOpenWeather(config));
+    //reporters.add( new ReporterNWSForcast(config,4));
 
     for(LineReporter r : reporters)
     {

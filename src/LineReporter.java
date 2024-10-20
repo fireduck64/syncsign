@@ -3,12 +3,17 @@ package duckutil.sign;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.awt.Color;
+import java.util.LinkedList;
 
 public abstract class LineReporter extends Thread
 {
   private boolean done = false;
   private List<String> lines = null;
   private String label;
+  private boolean err=false;
 
   public LineReporter(String label)
   {
@@ -28,6 +33,7 @@ public abstract class LineReporter extends Thread
     {
       t.printStackTrace();
       lines = ImmutableList.of(label + " exception");
+      err=true;
     }
     done=true;
   }
@@ -59,6 +65,46 @@ public abstract class LineReporter extends Thread
       return lines;
     }
     return ImmutableList.of(getTimeoutLine());
+
+  }
+
+  public BufferedImage getRender(Font font)
+  {
+
+    if (isDone())
+    {
+      if (err)
+      {
+        LinkedList<BufferedImage> lines = new LinkedList<>();
+
+        for(String line  : returnLines())
+        {
+          lines.add(GraphicsUtil.renderText(Color.WHITE, Color.RED, font, line));
+        }
+
+        return GraphicsUtil.vertStack(lines, 10);
+      }
+      else
+      {
+        return getSuccessRender(font);
+      }
+    }
+    else
+    {
+      return GraphicsUtil.renderText(Color.WHITE, Color.RED, font, getTimeoutLine());
+    }
+
+  }
+  public BufferedImage getSuccessRender(Font font)
+  {
+
+    LinkedList<BufferedImage> lines = new LinkedList<>();
+
+    for(String line  : returnLines())
+    {
+      lines.add(GraphicsUtil.renderText(Color.WHITE, Color.BLACK, font, line));
+    }
+    return GraphicsUtil.vertStack(lines, 8);
 
   }
 
