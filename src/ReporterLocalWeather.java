@@ -4,15 +4,18 @@ import java.util.Map;
 import java.util.TreeMap;
 import com.google.common.collect.ImmutableMap;
 import java.text.DecimalFormat;
+import duckutil.Config;
 
 public class ReporterLocalWeather extends LineReporter
 {
   private final DBUtil es_util;
+  private final String local_weather_location;
 
-  public ReporterLocalWeather(DBUtil es_util)
+  public ReporterLocalWeather(Config config, DBUtil es_util)
   {
     super("local_weather");
     this.es_util = es_util;
+    local_weather_location = config.require("local_weather_location");
   }
 
   @Override
@@ -21,7 +24,7 @@ public class ReporterLocalWeather extends LineReporter
     String out_temp = "";
     {
       Map<String,String> filters = new TreeMap<>();
-      filters.put("location", "outdoor");
+      filters.put("location", local_weather_location);
       Map<String, Object> doc = es_util.getLatest("airq", filters);
       double t = Double.parseDouble(doc.get("temp_f").toString());
       DecimalFormat df = new DecimalFormat("0.0");
@@ -30,7 +33,7 @@ public class ReporterLocalWeather extends LineReporter
     String out_hum = "";
     {
       Map<String,String> filters = new TreeMap<>();
-      filters.put("location", "outdoor");
+      filters.put("location", local_weather_location);
       Map<String, Object> doc = es_util.getLatest("airq", filters);
       out_hum = doc.get("hm").toString();
     }

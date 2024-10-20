@@ -58,8 +58,8 @@ public class Display
     //reporters.add( new ReporterCovidWeek("Washington","WA",1));
     //reporters.add( new ReporterCovidWeek("Washington,King","King",1));
     //reporters.add( new ReporterCountdown("fdt", 1661205600L));
-    reporters.add( new ReporterLocalWeather(es_util) );
-    reporters.add( new ReporterAQI(es_util) );
+    reporters.add( new ReporterLocalWeather(config, es_util) );
+    reporters.add( new ReporterAQI(config, es_util) );
     reporters.add( new ReporterNWSAlert(config));
     //reporters.add( new ReporterNWSForcast(config,4));
     reporters.add(new ReporterOpenWeather(config));

@@ -152,8 +152,8 @@ public class SignUpdate
     reporters.add( new ReporterPrice(es_util, "SNOW"));
     reporters.add( new ReporterStockPrice(es_util, "VUG"));
     reporters.add( new ReporterLert());
-    reporters.add( new ReporterLocalWeather(es_util));
-    reporters.add( new ReporterAQI(es_util) );
+    reporters.add( new ReporterLocalWeather(config, es_util));
+    reporters.add( new ReporterAQI(config, es_util) );
     reporters.add( new ReporterBlank());
     //reporters.add( new ReporterCovidWeek("US","US",7));
     //reporters.add( new ReporterCovidWeek("Washington","WA",7));

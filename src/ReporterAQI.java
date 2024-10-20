@@ -10,15 +10,19 @@ import java.awt.image.BufferedImage;
 import java.awt.Font;
 import java.awt.Color;
 import java.util.LinkedList;
+import duckutil.Config;
 
 public class ReporterAQI extends LineReporter
 {
   private final DBUtil es_util;
+  private final String local_weather_location;
 
-  public ReporterAQI(DBUtil es_util)
+  public ReporterAQI(Config config, DBUtil es_util)
   {
     super("aqi");
     this.es_util = es_util;
+    local_weather_location = config.require("local_weather_location");
+
   }
 
   List<Pair<String, Long> > air_val = new LinkedList<>();
@@ -38,7 +42,7 @@ public class ReporterAQI extends LineReporter
     long out_aqi = 0;
     {
       Map<String,String> filters = new TreeMap<>();
-      filters.put("location", "outdoor");
+      filters.put("location", local_weather_location);
       Map<String, Object> doc = es_util.getLatest("airq", filters);
       out_aqi = getAqi(doc);
     }
