@@ -2,8 +2,8 @@ package duckutil.sign;
 
 import duckutil.Config;
 import duckutil.ConfigFile;
-import java.util.LinkedList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import net.minidev.json.JSONArray;
@@ -54,7 +54,7 @@ public class SignUpdate
       {
         options.put("refreshScreen", false);
       }
-      
+
       JSONArray items = new JSONArray();
       layout.put("items", items);
 

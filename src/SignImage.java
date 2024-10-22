@@ -2,26 +2,19 @@ package duckutil.sign;
 
 import duckutil.Config;
 import duckutil.ConfigFile;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Color;
-import java.awt.font.FontRenderContext;
-import java.awt.Font;
-
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.MulticastSocket;
-
-
 
 public class SignImage
 {

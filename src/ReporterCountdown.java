@@ -1,10 +1,5 @@
 package duckutil.sign;
 
-import java.util.Map;
-import java.util.TreeMap;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableList;
-import java.util.List;
 
 public class ReporterCountdown extends LineReporter
 {

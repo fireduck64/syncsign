@@ -1,6 +1,5 @@
 package duckutil.sign;
 
-
 import duckutil.Config;
 import java.util.LinkedList;
 import java.util.List;
@@ -84,7 +83,7 @@ public class ReporterNWSForcast extends LineReporter
       c++;
     }
 
-    
+
 
     return lines;
 

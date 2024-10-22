@@ -1,16 +1,15 @@
 package duckutil.sign;
 
+import com.google.common.collect.ImmutableList;
+import duckutil.Config;
+import duckutil.Pair;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableList;
-import java.util.List;
-import duckutil.Pair;
-import java.awt.image.BufferedImage;
-import java.awt.Font;
-import java.awt.Color;
-import java.util.LinkedList;
-import duckutil.Config;
 
 public class ReporterAQI extends LineReporter
 {
@@ -75,7 +74,7 @@ public class ReporterAQI extends LineReporter
   {
     List<BufferedImage> sections = new LinkedList<>();
     sections.add( GraphicsUtil.renderText(Color.WHITE, Color.BLACK, font, "AQI"));
-    
+
     for(Pair<String, Long> p : air_val)
     {
       Color fg = Color.RED;
@@ -108,7 +107,7 @@ public class ReporterAQI extends LineReporter
     Double p25 = Double.parseDouble(doc.get("p2").toString());
 
     return Math.max(
-      getAqiFromPol( 
+      getAqiFromPol(
         ImmutableList.of(0.0, 50.0,100.0,150.0, 200.0, 300.0, 400.0, 500.0),
         ImmutableList.of(0.0, 12.0, 35.5, 55.5, 150.5, 250.5, 350.5, 500.5),
         p25),
@@ -119,21 +118,21 @@ public class ReporterAQI extends LineReporter
     );
   }
 
-	// From https://aqicn.org/calculator/
+  // From https://aqicn.org/calculator/
   public long getAqiFromPol(List<Double> range, List<Double> scale, double p2)
   {
-		double c = p2;
+    double c = p2;
 
-		for(int i=0; i<scale.size()-1; i++)
-		{
-			if ((c >= scale.get(i)) && (c<scale.get(i+1)))
-			{
-				double aqi = range.get(i) +
-					(c - scale.get(i)) * (range.get(i+1) - range.get(i)) / (scale.get(i+1) - scale.get(i));
-				return Math.round(aqi);
-			}
-		}
-		return 500;
+    for(int i=0; i<scale.size()-1; i++)
+    {
+      if ((c >= scale.get(i)) && (c<scale.get(i+1)))
+      {
+        double aqi = range.get(i) +
+          (c - scale.get(i)) * (range.get(i+1) - range.get(i)) / (scale.get(i+1) - scale.get(i));
+        return Math.round(aqi);
+      }
+    }
+    return 500;
 
   }
 

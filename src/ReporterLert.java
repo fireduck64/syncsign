@@ -1,18 +1,16 @@
 package duckutil.sign;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.image.BufferedImage;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
-import java.awt.image.BufferedImage;
-import java.awt.Font;
-import java.awt.Color;
-
+import java.util.TreeSet;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.TreeSet;
-
 
 public class ReporterLert extends LineReporter
 {
@@ -39,10 +37,10 @@ public class ReporterLert extends LineReporter
     while(scan.hasNextLine())
     {
       last_line = scan.nextLine();
-    }    
+    }
 
     last_line = last_line.replace("MISSING","MISS");
-   
+
     String json_line = last_line;
     json_line = json_line.replace("MISS", "\"MISS\"");
     json_line = json_line.replace("OK", "\"OK\"");
@@ -51,14 +49,14 @@ public class ReporterLert extends LineReporter
 
 
     lert_json = (JSONObject) new JSONParser( JSONParser.DEFAULT_PERMISSIVE_MODE ).parse(json_line);
-    
+
     return last_line;
   }
 
   @Override
   public BufferedImage getSuccessRender(Font font)
   {
-    List<BufferedImage> sections = new LinkedList<>();  
+    List<BufferedImage> sections = new LinkedList<>();
 
     TreeSet<String> keys = new TreeSet<>();
     keys.addAll(lert_json.keySet());
@@ -88,7 +86,7 @@ public class ReporterLert extends LineReporter
     }
 
     return GraphicsUtil.vertStack(sections, 8);
-    
+
 
   }
 

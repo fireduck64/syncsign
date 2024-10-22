@@ -40,7 +40,7 @@ public class FontSelect
     lst.add("APRILSANS_" + size);
     lst.add("ROBOTO_CONDENSED_" + size);
     lst.add("ROBOTO_SLAB_" + size);
-    
+
     lst.add("YANONE_KAFFEESATZ_"+size+"_B");
     lst.add("KAUSHAN_SCRIPT_" + size);
     lst.add("SRIRACHA_" + size);
@@ -64,7 +64,7 @@ public class FontSelect
 
     JSONObject background = new JSONObject();
     layout.put("background", background);
-    
+
     JSONArray items = new JSONArray();
     layout.put("items", items);
 

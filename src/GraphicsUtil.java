@@ -1,14 +1,10 @@
 package duckutil.sign;
 
-import java.awt.image.BufferedImage;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.font.FontRenderContext;
 import java.awt.Color;
-import java.awt.font.FontRenderContext;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.List;
-
 
 public class GraphicsUtil
 {
@@ -55,7 +51,7 @@ public class GraphicsUtil
   {
      BufferedImage bi = new BufferedImage(600,400,BufferedImage.TYPE_INT_RGB);
 
-     Graphics2D g = bi.createGraphics(); 
+     Graphics2D g = bi.createGraphics();
      g.setColor(back_color);
      g.fillRect(0,0,600,400);
      g.setFont(font);
@@ -78,7 +74,7 @@ public class GraphicsUtil
       total_y = Math.max(total_y, bi.getHeight());
     }
     BufferedImage out = new BufferedImage(total_x, total_y, BufferedImage.TYPE_INT_RGB);
-    Graphics2D g = out.createGraphics(); 
+    Graphics2D g = out.createGraphics();
     g.setColor(Color.WHITE);
     g.fillRect(0,0, total_x, total_y);
     int x = 0;
@@ -104,7 +100,7 @@ public class GraphicsUtil
       total_x = Math.max(total_x, bi.getWidth());
     }
     BufferedImage out = new BufferedImage(total_x, total_y, BufferedImage.TYPE_INT_RGB);
-    Graphics2D g = out.createGraphics(); 
+    Graphics2D g = out.createGraphics();
     g.setColor(Color.WHITE);
     g.fillRect(0,0, total_x, total_y);
     int y = 0;

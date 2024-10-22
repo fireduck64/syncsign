@@ -1,7 +1,7 @@
 package duckutil.sign;
 
-import java.util.Map;
 import java.text.DecimalFormat;
+import java.util.Map;
 
 public class ReporterPrice extends LineReporter
 {

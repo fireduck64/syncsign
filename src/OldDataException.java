@@ -1,5 +1,4 @@
 package duckutil.sign;
-
 public class OldDataException extends Exception
 {
   public OldDataException(String msg)
@@ -10,5 +9,6 @@ public class OldDataException extends Exception
   {
     super(t);
   }
-
 }
+
+

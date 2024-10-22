@@ -1,22 +1,21 @@
 package duckutil.sign;
 
 import duckutil.Config;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.TreeSet;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Collection;
-import java.util.LinkedList;
-
 
 public class NWSUtil
 {
@@ -34,15 +33,15 @@ public class NWSUtil
       }
       catch(java.io.IOException e)
       {
-      
+
       }
-        
+
     }
 
     TreeSet<String> hazards = new TreeSet<>();
 
     JSONArray features = (JSONArray) doc.get("features");
-    
+
     for(Object fo : features)
     {
       JSONObject f = (JSONObject) fo;
@@ -109,7 +108,7 @@ public class NWSUtil
       }
     }
 
-    return lst; 
+    return lst;
   }
 
   public static JSONArray getForcast(Config config)
@@ -129,9 +128,9 @@ public class NWSUtil
       }
       catch(java.io.IOException e)
       {
-      
+
       }
-        
+
     }*/
 
     JSONObject properties = (JSONObject) doc.get("properties");
@@ -155,7 +154,7 @@ public class NWSUtil
   {
     File f = new File(file);
     InputStream in = new FileInputStream(f);
-    
+
     return (JSONObject) new JSONParser( JSONParser. DEFAULT_PERMISSIVE_MODE).parse(in);
 
   }
@@ -181,4 +180,3 @@ public class NWSUtil
   }
 
 }
-

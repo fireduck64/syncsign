@@ -1,6 +1,5 @@
 package duckutil.sign;
 
-
 import duckutil.Config;
 import java.util.Set;
 

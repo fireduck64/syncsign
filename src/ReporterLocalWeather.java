@@ -1,10 +1,9 @@
 package duckutil.sign;
 
+import duckutil.Config;
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.TreeMap;
-import com.google.common.collect.ImmutableMap;
-import java.text.DecimalFormat;
-import duckutil.Config;
 
 public class ReporterLocalWeather extends LineReporter
 {

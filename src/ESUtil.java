@@ -56,7 +56,7 @@ public class ESUtil implements AutoCloseable, DBUtil
         bqb.must( QueryBuilders.matchQuery(me.getKey() +".keyword", me.getValue() )
           .operator( Operator.AND)
           .analyzer("keyword"));
-      }   
+      }
       qb = bqb;
     }
     req.source(

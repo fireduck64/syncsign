@@ -1,12 +1,11 @@
-
 package duckutil.sign;
 
 import com.google.common.collect.ImmutableList;
-import java.util.List;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
-import java.awt.Color;
 import java.util.LinkedList;
+import java.util.List;
 
 public abstract class LineReporter extends Thread
 {

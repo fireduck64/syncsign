@@ -37,7 +37,7 @@ public class Render
     int code = connection.getResponseCode();
 
     return code;
-    
+
 
   }
 

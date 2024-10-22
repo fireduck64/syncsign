@@ -1,27 +1,22 @@
 package duckutil.sign;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
-import java.awt.image.BufferedImage;
-import java.awt.Font;
-import java.awt.Color;
-
-import net.minidev.json.JSONObject;
-import net.minidev.json.JSONArray;
-import net.minidev.json.parser.JSONParser;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.TreeSet;
+import com.google.common.collect.ImmutableList;
 import duckutil.Config;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.text.DecimalFormat;
-import javax.imageio.ImageIO;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import com.google.common.collect.ImmutableList;
-
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import javax.imageio.ImageIO;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 
 public class ReporterOpenWeather extends LineReporter
 {
@@ -37,7 +32,7 @@ public class ReporterOpenWeather extends LineReporter
     config.require("openweather_api_key");
   }
 
-  
+
 
 
   @Override
@@ -45,7 +40,7 @@ public class ReporterOpenWeather extends LineReporter
     throws Exception
   {
     String url_str = String
-      .format("https://api.openweathermap.org/data/2.5/forecast/daily?lat=%s&lon=%s&cnt=7&appid=%s", 
+      .format("https://api.openweathermap.org/data/2.5/forecast/daily?lat=%s&lon=%s&cnt=7&appid=%s",
         config.require("openweather_lat"),
         config.require("openweather_lon"),
         config.require("openweather_api_key"));
@@ -77,7 +72,7 @@ public class ReporterOpenWeather extends LineReporter
 
       DecimalFormat df = new DecimalFormat("0");
 
-      lines.add( getDayForTime(dt) + " " + df.format(getTempKtoF(temp_min_k)) 
+      lines.add( getDayForTime(dt) + " " + df.format(getTempKtoF(temp_min_k))
         + " " + df.format(getTempKtoF(temp_max_k)) + " " + weather_word);
 
     }
@@ -124,7 +119,7 @@ public class ReporterOpenWeather extends LineReporter
 
       DecimalFormat df = new DecimalFormat("0");
 
-      String line = getDayForTime(dt) + " " + df.format(getTempKtoF(temp_min_k)) 
+      String line = getDayForTime(dt) + " " + df.format(getTempKtoF(temp_min_k))
         + " " + df.format(getTempKtoF(temp_max_k));
 
       if (icon_img == null)

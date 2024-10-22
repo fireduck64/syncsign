@@ -4,9 +4,6 @@ import duckutil.Config;
 import duckutil.ConfigFile;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
 
 public class Display
 {

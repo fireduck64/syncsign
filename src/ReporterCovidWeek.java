@@ -1,17 +1,12 @@
 package duckutil.sign;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.TreeSet;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import java.util.List;
-import java.util.ArrayList;
 import java.text.DecimalFormat;
-
+import java.util.ArrayList;
+import java.util.List;
+import net.minidev.json.JSONArray;
+import net.minidev.json.parser.JSONParser;
 
 public class ReporterCovidWeek extends LineReporter
 {
@@ -29,13 +24,13 @@ public class ReporterCovidWeek extends LineReporter
   @Override
   public String computeLine() throws Exception
   {
-  	JSONArray deaths = get("https://covid19-data.1209k.com/chart_data/deaths/"+location+"?include_delta=true"); 
-  	JSONArray cases = get("https://covid19-data.1209k.com/chart_data/cases/"+location+"?include_delta=true"); 
+    JSONArray deaths = get("https://covid19-data.1209k.com/chart_data/deaths/"+location+"?include_delta=true");
+    JSONArray cases = get("https://covid19-data.1209k.com/chart_data/cases/"+location+"?include_delta=true");
 
     double case_count = sumDeltaWeek(cases)/days;
     double death_count = sumDeltaWeek(deaths)/days;
 
-		return label + " " + formatNum(case_count) + " " +formatNum(death_count);
+    return label + " " + formatNum(case_count) + " " +formatNum(death_count);
   }
 
   public String formatNum(double in)
@@ -61,8 +56,8 @@ public class ReporterCovidWeek extends LineReporter
 
   }
 
-	public double sumDeltaWeek(JSONArray arr)
-	{
+  public double sumDeltaWeek(JSONArray arr)
+  {
     int sz = arr.size();
     List<Object> week = arr.subList(sz-days, sz);
 
@@ -78,7 +73,7 @@ public class ReporterCovidWeek extends LineReporter
 
     return total;
 
-	}
+  }
 
   public static JSONArray get(String url)
     throws Exception

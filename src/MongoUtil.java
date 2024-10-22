@@ -1,17 +1,13 @@
 package duckutil.sign;
 
-import duckutil.Config;
-import java.net.URL;
-import java.util.Map;
-import java.util.LinkedList;
-import org.bson.Document;
-
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.IndexOptions;
-
+import com.mongodb.client.MongoDatabase;
+import duckutil.Config;
+import java.util.LinkedList;
+import java.util.Map;
+import org.bson.Document;
 
 public class MongoUtil implements DBUtil
 {
@@ -55,7 +51,7 @@ public class MongoUtil implements DBUtil
     }
     return null;
 
-    
+
   }
 
   public void close()

@@ -7,19 +7,16 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.Random;
-import net.minidev.json.JSONObject;
+import java.util.TreeMap;
 import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
-import java.time.ZoneId;
-import java.time.Instant;
 
 public class ReporterOpenRain extends LineReporter
 {
@@ -136,7 +133,7 @@ public class ReporterOpenRain extends LineReporter
     for(Object o : hourly)
     {
       JSONObject jo = (JSONObject) o;
-      
+
       double pop = Double.parseDouble( "" + jo.get("pop"));
       long dt = Long.parseLong("" + jo.get("dt"));
       int hour = getHourForTime(dt);
@@ -166,7 +163,7 @@ public class ReporterOpenRain extends LineReporter
 
   public int getCurrentOffset()
   {
-    
+
     int total_width = 24*hour_width;
 
     int curr_hour = Instant.now().atZone( ZoneId.systemDefault() ).getHour();
@@ -178,7 +175,7 @@ public class ReporterOpenRain extends LineReporter
     double ratio = min / min_in_day;
 
     int offset = (int)Math.round( ratio * total_width);
-    
+
 
     return Math.min( offset, 60*24-1);
 
