@@ -141,6 +141,7 @@ public class SignImage
     reporters.add( new ReporterNWSAlert(config));
     //reporters.add( new ReporterNWSForcast(config,4));
     reporters.add(new ReporterOpenWeather(config));
+    reporters.add(new ReporterOpenRain(config, 10,45));
 
     for(LineReporter r : reporters)
     {
