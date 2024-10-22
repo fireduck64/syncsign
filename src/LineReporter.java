@@ -69,6 +69,7 @@ public abstract class LineReporter extends Thread
   }
 
   public BufferedImage getRender(Font font)
+    throws Exception
   {
 
     if (isDone())
@@ -96,6 +97,7 @@ public abstract class LineReporter extends Thread
 
   }
   public BufferedImage getSuccessRender(Font font)
+    throws Exception
   {
 
     LinkedList<BufferedImage> lines = new LinkedList<>();

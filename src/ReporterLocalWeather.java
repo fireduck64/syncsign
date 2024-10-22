@@ -27,7 +27,7 @@ public class ReporterLocalWeather extends LineReporter
       filters.put("location", local_weather_location);
       Map<String, Object> doc = es_util.getLatest("airq", filters);
       double t = Double.parseDouble(doc.get("temp_f").toString());
-      DecimalFormat df = new DecimalFormat("0.0");
+      DecimalFormat df = new DecimalFormat("0");
       out_temp = df.format(t);
     }
     String out_hum = "";

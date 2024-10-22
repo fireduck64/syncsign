@@ -26,7 +26,7 @@ public class ReporterStockPrice extends LineReporter
     Map<String, Object> doc = es_util.getLatest("stockprice", filter);
     double price = Double.parseDouble(doc.get("price").toString());
     DecimalFormat df = new DecimalFormat("0.00");
-    return ticker + " - " + df.format(price);
+    return ticker + ": " + df.format(price);
   }
 
 }

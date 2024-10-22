@@ -158,7 +158,7 @@ public class SignUpdate
     //reporters.add( new ReporterCovidWeek("US","US",7));
     //reporters.add( new ReporterCovidWeek("Washington","WA",7));
     //reporters.add( new ReporterCovidWeek("Washington,King","King",1));
-    //reporters.add( new ReporterCountdown("fdt", 1661205600L));
+    reporters.add( new ReporterCountdown("DL", 1732395600L));
     reporters.add( new ReporterNWSAlert(config));
     reporters.add(new ReporterOpenWeather(config));
     //reporters.add( new ReporterNWSForcast(config,4));

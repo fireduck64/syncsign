@@ -66,7 +66,7 @@ public class ReporterAQI extends LineReporter
     }
     air_val.add(new Pair<String, Long>("s", studio_aqi));
 
-   return String.format("A o%d h%d s%d c%d", out_aqi, in_aqi, studio_aqi, crab_aqi);
+    return String.format("A o%d h%d s%d c%d", out_aqi, in_aqi, studio_aqi, crab_aqi);
 
   }
 

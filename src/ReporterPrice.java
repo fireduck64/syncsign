@@ -22,7 +22,11 @@ public class ReporterPrice extends LineReporter
     //System.out.println(doc);
     double price = Double.parseDouble(doc.get(ticker).toString());
     DecimalFormat df = new DecimalFormat("0.00");
-    return ticker + " - " + df.format(price);
+    if (price > 1000.0)
+    {
+      df = new DecimalFormat("0");
+    }
+    return ticker + ": " + df.format(price);
   }
 
 }

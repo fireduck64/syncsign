@@ -33,7 +33,7 @@ public class SignImage
   private DBUtil es_util;
   private Config config;
 
-  private int body_font_size=34;
+  private int body_font_size=38;
   //private Font body_font = new Font("Lucida Console", Font.PLAIN, body_font_size);
   private Font base_font = Font.createFont(Font.TRUETYPE_FONT, new File("font/CONSOLA.TTF"));
   private Font body_font = base_font. deriveFont( Font.PLAIN, body_font_size);
@@ -127,7 +127,7 @@ public class SignImage
     int total_wait = 25000;
 
     //reporters.add( new ReporterDate("EEE MM-dd hh:mm") );
-    reporters.add( new ReporterDate("EEE yyyy.MM.dd") );
+    reporters.add( new ReporterDate("EEE MM.dd") );
     reporters.add( new ReporterDate("HH:mm") );
     reporters.add( new ReporterPrice(es_util, "BTC"));
     reporters.add( new ReporterPrice(es_util, "BCH"));
@@ -137,6 +137,7 @@ public class SignImage
     reporters.add( new ReporterLert());
     reporters.add( new ReporterLocalWeather(config, es_util) );
     reporters.add( new ReporterAQI(config, es_util) );
+    reporters.add( new ReporterCountdown("DL", 1732395600L));
     reporters.add( new ReporterNWSAlert(config));
     //reporters.add( new ReporterNWSForcast(config,4));
     reporters.add(new ReporterOpenWeather(config));
