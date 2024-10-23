@@ -40,9 +40,10 @@ public class ReporterOpenWeather extends LineReporter
     throws Exception
   {
     String url_str = String
-      .format("https://api.openweathermap.org/data/2.5/forecast/daily?lat=%s&lon=%s&cnt=7&appid=%s",
+      .format("https://api.openweathermap.org/data/2.5/forecast/daily?lat=%s&lon=%s&cnt=%d&appid=%s",
         config.require("openweather_lat"),
         config.require("openweather_lon"),
+        5,
         config.require("openweather_api_key"));
 
     URL u = new URL(url_str);
