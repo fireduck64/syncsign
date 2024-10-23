@@ -70,13 +70,15 @@ public class ReporterOpenRain extends LineReporter
     g.setColor(Color.WHITE);
     g.fillRect(0,0,total_width, height);
 
+
+    // top and bottom lines
     for(int i=0; i<total_width; i++)
     {
       bi.setRGB(i, 0, Color.GREEN.getRGB());
       bi.setRGB(i, height-1, Color.BLACK.getRGB());
     }
 
-
+    // 6 hour hash marks
     for(int i=0; i<4; i++)
     {
       int offset = i * hour_width * 6;
@@ -87,6 +89,7 @@ public class ReporterOpenRain extends LineReporter
       }
     }
 
+    // Current time
     {
       int cur_offset= getCurrentOffset();
       for(int j=1; j<height; j+=3)
@@ -95,6 +98,51 @@ public class ReporterOpenRain extends LineReporter
       }
     }
 
+    // draw night
+    {
+      JSONObject current = (JSONObject) weather_json.get("current");
+      long sunset = Long.parseLong("" + current.get("sunset"));
+      long sunrise = Long.parseLong("" + current.get("sunrise"));
+      int sunrise_off = getOffset(sunrise);
+      int sunset_off = getOffset(sunset);
+      Random rnd = new Random();
+      double night_fill = 1.0;
+
+
+      Color fill = Color.BLACK;
+      for(int x=0; x<total_width; x++)
+      {
+        if((x > sunset_off) || (x < sunrise_off))
+        {
+          fill = Color.BLUE;
+        }
+        else
+        {
+          fill = Color.GREEN;
+        }
+        if (x == sunset_off) fill = Color.GREEN;
+        if (x == sunrise_off) fill = Color.GREEN;
+
+        //for(int j=0; j<height; j++)
+        //for(int j=0; j<height; j++)
+        int j = 0;
+        {
+          //if (bi.getRGB(x,j) == Color.WHITE.getRGB())
+          {
+            if (rnd.nextDouble() < night_fill)
+            {
+              bi.setRGB(x,j, fill.getRGB());
+            }
+          }
+        }
+      
+      }
+
+
+
+    }
+
+    // Draw in rain prob
     for(Map.Entry<Integer, Double> h : getRainByHourMap().entrySet())
     {
       int hour = h.getKey();
@@ -115,9 +163,7 @@ public class ReporterOpenRain extends LineReporter
         {
           bi.setRGB(x,y, Color.BLUE.getRGB());
         }
-
       }
-
     }
 
     return bi;
@@ -160,14 +206,19 @@ public class ReporterOpenRain extends LineReporter
     return inst.atZone( ZoneId.systemDefault() ).getHour() + delta_day * 24;
 
   }
-
   public int getCurrentOffset()
+  {
+    return getOffset( System.currentTimeMillis()/1000L );
+
+  }
+
+  public int getOffset(long epoch_sec)
   {
 
     int total_width = 24*hour_width;
 
-    int curr_hour = Instant.now().atZone( ZoneId.systemDefault() ).getHour();
-    int curr_min = Instant.now().atZone( ZoneId.systemDefault() ).getMinute();
+    int curr_hour = Instant.ofEpochSecond(epoch_sec).atZone( ZoneId.systemDefault() ).getHour();
+    int curr_min = Instant.ofEpochSecond(epoch_sec).atZone( ZoneId.systemDefault() ).getMinute();
 
     double min = curr_min + 60*curr_hour;
     double min_in_day = 60*24;

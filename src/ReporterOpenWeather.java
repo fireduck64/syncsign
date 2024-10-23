@@ -109,6 +109,8 @@ public class ReporterOpenWeather extends LineReporter
       if (icon_file.exists())
       {
         icon_img = ImageIO.read(icon_file);
+        GraphicsUtil.dither(icon_img, Color.BLUE, Color.WHITE, Color.BLUE);
+        GraphicsUtil.dither(icon_img, Color.BLACK, Color.WHITE, Color.BLACK);
 
       }
       else
