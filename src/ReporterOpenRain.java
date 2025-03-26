@@ -88,16 +88,6 @@ public class ReporterOpenRain extends LineReporter
         bi.setRGB(offset, j, Color.BLACK.getRGB());
       }
     }
-
-    // Current time
-    {
-      int cur_offset= getCurrentOffset();
-      for(int j=1; j<height; j+=3)
-      {
-        bi.setRGB(cur_offset, j, Color.RED.getRGB());
-      }
-    }
-
     // draw night
     {
       JSONObject current = (JSONObject) weather_json.get("current");
@@ -118,14 +108,14 @@ public class ReporterOpenRain extends LineReporter
         }
         else
         {
-          fill = Color.GREEN;
+          fill = Color.YELLOW;
         }
         if (x == sunset_off) fill = Color.GREEN;
         if (x == sunrise_off) fill = Color.GREEN;
 
         //for(int j=0; j<height; j++)
-        //for(int j=0; j<height; j++)
-        int j = 0;
+        //int j = 0;
+        for(int j=0; j<3; j++)
         {
           //if (bi.getRGB(x,j) == Color.WHITE.getRGB())
           {
@@ -161,10 +151,31 @@ public class ReporterOpenRain extends LineReporter
 
         if (bi.getRGB(x,y) == Color.WHITE.getRGB())
         {
+          if ((x+y) % 2 == 1)
           bi.setRGB(x,y, Color.BLUE.getRGB());
         }
       }
     }
+
+    // Current time
+    {
+      int cur_offset= getCurrentOffset();
+      for(int i=cur_offset; i<=cur_offset+2; i++)
+      {
+        if (i < bi.getWidth())
+        {
+        for(int j=1; j<height; j+=1)
+        {
+          bi.setRGB(i,j, Color.WHITE.getRGB());
+          if (j % 3 == 1)
+          {
+            bi.setRGB(i, j, Color.RED.getRGB());
+          }
+        }
+        }
+      }
+    }
+
 
     return bi;
 

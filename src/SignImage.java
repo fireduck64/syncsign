@@ -91,10 +91,12 @@ public class SignImage
     ds.setLoopbackMode(false);
     InetAddress group = InetAddress.getByName(MULTICAST_IPV6_ADDRESS);
     ds.joinGroup(group);
-
     byte[] buff = new byte[10];
-
-    ds.send(new DatagramPacket(buff, buff.length, group, mcast_port));
+    for(int i=0; i<5; i++)
+    {
+      ds.send(new DatagramPacket(buff, buff.length, group, mcast_port));
+      Thread.sleep(25);
+    }
 
   }
 
@@ -130,7 +132,7 @@ public class SignImage
     reporters.add( new ReporterLert());
     reporters.add( new ReporterLocalWeather(config, es_util) );
     reporters.add( new ReporterAQI(config, es_util) );
-    reporters.add( new ReporterCountdown("DL", 1732395600L));
+    //reporters.add( new ReporterCountdown("DL", 1732395600L));
     reporters.add( new ReporterNWSAlert(config));
     //reporters.add( new ReporterNWSForcast(config,4));
     reporters.add(new ReporterOpenWeather(config));
