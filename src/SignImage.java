@@ -130,7 +130,7 @@ public class SignImage
     reporters.add( new ReporterLert());
     reporters.add( new ReporterLocalWeather(config, es_util) );
     reporters.add( new ReporterAQI(config, es_util) );
-    reporters.add( new ReporterCountdown("DL", 1732395600L));
+    //reporters.add( new ReporterCountdown("DL", 1732395600L));
     reporters.add( new ReporterNWSAlert(config));
     //reporters.add( new ReporterNWSForcast(config,4));
     reporters.add(new ReporterOpenWeather(config));
