@@ -41,17 +41,7 @@ public class ReporterOpenRain extends LineReporter
   public List<String> computeLines()
     throws Exception
   {
-    String url_str = String
-      .format("https://api.openweathermap.org/data/3.0/onecall?lat=%s&lon=%s&appid=%s",
-        config.require("openweather_lat"),
-        config.require("openweather_lon"),
-        config.require("openweather_api_key"));
-
-    URL u = new URL(url_str);
-    HttpURLConnection connection = (HttpURLConnection) u.openConnection();
-    connection.setRequestMethod("GET");
-
-    weather_json = (JSONObject) new JSONParser( JSONParser.DEFAULT_PERMISSIVE_MODE ).parse(connection.getInputStream());
+    weather_json = OpenWeatherUtil.getOneCall(config);
 
     LinkedList<String> lines = new LinkedList<>();
 
