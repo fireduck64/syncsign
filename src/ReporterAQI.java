@@ -55,7 +55,7 @@ public class ReporterAQI extends LineReporter
       Map<String, Object> doc = es_util.getLatest("airq", filters);
       crab_aqi = getAqi(doc);
     }
-    air_val.add(new Pair<String, Long>("c", out_aqi));
+    air_val.add(new Pair<String, Long>("c", crab_aqi));
 
     /*
     long crab_aqi = 0;
